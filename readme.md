@@ -41,6 +41,9 @@ my_positioner = positioner.Positioner(bus, 4)
 -->
 # Examples
 
+Here are all the python functions you need to get through this practicals 
+**Gentle warning**: nothing prevents you from roaming into the original files to get to know additional function, it is even encouraged if you want to learn more about how the code for such robot is made :-) **However**, if you wish to get through this practicals with a minimum head-ache from the famous "why does my code not work?", we recommand you do not modify any further the original files ;-)
+
 ## Setup communication for camera & positioner
 
 Create cam and pos objects to call the functions needed to perform this practical
@@ -96,7 +99,7 @@ x_centroid, y_centroid = cam.getCentroid()
 print(x_centroid, y_centroid)
 ```
 
-# Fit circle 
+## Fit circle 
 
 Finally you will also by provided the fit_circle function, i.e. determine the closest circle fit from a set of data points
 
