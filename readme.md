@@ -1,10 +1,13 @@
-﻿# SDSS-V Positioner interface
+﻿# SDSS-V Positioner & Camera interface
 
-This library allows communication with the SDSS-V Positioner though the CAN bus.
+This library allows communication with the SDSS-V Positioner though the CAN bus and with the Basler camera via USB.
 
 # Setup
 
-In order to use it, python-can package should be installed.
+Python version: 3.7 or after
+In order to use it the modules in requirement.txt must be available for the used python interpreter
+
+Note for serial link between PC and positioner:
 Until the next release of the package (2.3.0), where the serial interface is going to be updated the following version is used for testing:
 https://github.com/boris-wenzlaff/python-can/tree/serialcom_b
 
@@ -38,6 +41,38 @@ my_positioner = positioner.Positioner(bus, 4)
 
 # Examples
 
+## Inititalize communication with camera and robot
+
+Create cam and pos objects to call the functions needed to perform this practical
+```python
+import tp_astro as tp
+cam, pos = tp.tp_astro()
+```
+
+## Perform a manual move
+Make a move.
+Each axis can rotate from 0° to 360°. Once the pos object is created you can either:
+
+* move to an absolute angular position, say (alpha = 30°, beta = 90°)
+```python
+# Alpha axis will move to 30° and beta to 90
+pos.goto_absolute(30,90)
+```
+* move to a relative angular position from current position, say (alpha = 30°, beta = 90°)
+```python
+# Alpha axis will move 30° from current position and beta 90° from current pos
+pos.goto_relative(30,90)
+```
+* change the angular speed of each axis, in RPM on the motor side (speed limits: [1000, 3000] RPM)
+```python
+# Speed for the next move will be changed to 2000 RPM for both axis
+pos.set_speed(2000,2000)
+```
+* wait for the move to finish before continuing (totally ramdomly: useful for waiting for the fiber to get in position to acquire its centroid)
+```python
+pos.wait_move()
+```
+
 ## Perform a firmware upgrade
 The following commands will perform a firmware upgrade on the device with ID 4 on an ixxat bus.
 ```python
@@ -53,23 +88,7 @@ pos4.firmware_upgrade(r'sdssv_v2.bin')
 ```
 
 
-## Perform a manual move
-Make a move.
-```python
-import can
-import positioner
-canbus = can.interface.Bus(bustype='ixxat', channel=0, bitrate=1000000)
-pos4 = positioner.Positioner(canbus, 4)
-# get firmware version to make sure we are main firmware
-# make sure version is xx.02.zz
-pos4.get_fw_version()
-# init the datums otherwise positioner will refuse to move, LEDs will blink alternatively after init is done
-pos4.initialize_datums()
-# set the speed, both motors are 1000 rpm, by default speed is 0 so it won't move
-pos4.set_speed(1000, 1000)
-# send a position to where to move in degrees
-pos4.goto_absolute(60, 60)
-```
+
 ## Send a trajectory
 Send a trajectory and initiate move
 ```python
