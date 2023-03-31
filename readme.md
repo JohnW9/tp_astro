@@ -14,12 +14,11 @@ https://github.com/boris-wenzlaff/python-can/tree/serialcom_b
 # Usage
 
 The usage is pretty simple:
-* import can and positioner
-* make a CANbus interface
-* setup a positioner with the can bus interface and the ID
-* use it :-)
+* import tp_init() from tp_astro
+* initialiaze CAN bus for positioner & USB link for camera (example below)
+* use them :-)
 
-## Setup a can interface
+<!--- ## Setup a can interface
 
 To set up an interface, simply use the bus.can.interface with proper options.
 for an ixxat device use:
@@ -30,48 +29,53 @@ for a serial device with the usbcan adapter use:
 ```python
 bus = can.interface.Bus('COM3', bustype='slcan', ttyBaudrate=921600, bitrate=1000000)
 ```
+-->
 
-## Setup a positioner
+<!---  ## Setup a positioner
 
 Simply declare a positioner with the bus created earlier and the CAN ID.
 ```python
 my_positioner = positioner.Positioner(bus, 4)
 ```
 > The ID 0 can be used for broadcast commands.
-
+-->
 # Examples
 
-## Inititalize communication with camera and robot
+## Setup communication for camera & positioner
 
 Create cam and pos objects to call the functions needed to perform this practical
 ```python
 import tp_astro as tp
-cam, pos = tp.tp_astro()
+cam, pos = tp.tp_init()
 ```
 
 ## Perform a manual move
 Make a move.
 Each axis can rotate from 0° to 360°. Once the pos object is created you can either:
 
-* move to an absolute angular position, say (alpha = 30°, beta = 90°)
+* Move to an absolute angular position, say (alpha = 30°, beta = 90°)
 ```python
 # Alpha axis will move to 30° and beta to 90
 pos.goto_absolute(30,90)
 ```
-* move to a relative angular position from current position, say (alpha = 30°, beta = 90°)
+* Move to a relative angular position from current position, say (alpha = 30°, beta = 90°)
 ```python
 # Alpha axis will move 30° from current position and beta 90° from current pos
 pos.goto_relative(30,90)
 ```
-* change the angular speed of each axis, in RPM on the motor side (speed limits: [1000, 3000] RPM)
+* Change the angular speed of each axis, in RPM on the motor side (speed limits: [1000, 3000] RPM)
 ```python
 # Speed for the next move will be changed to 2000 RPM for both axis
 pos.set_speed(2000,2000)
 ```
-* wait for the move to finish before continuing (totally ramdomly: useful for waiting for the fiber to get in position to acquire its centroid)
+* Wait for the move to finish before continuing (totally ramdomly: useful for waiting for the fiber to get in position to acquire its centroid)
 ```python
 pos.wait_move()
 ```
+
+## Acquire data with camera
+
+The camera allows you to acquire the center point of the dot of light on the robot 
 
 ## Perform a firmware upgrade
 The following commands will perform a firmware upgrade on the device with ID 4 on an ixxat bus.
@@ -87,8 +91,7 @@ pos4.firmware_upgrade(r'sdssv_v2.bin')
 # aditionnal checks can be done with status to make sure the new image was loaded and checksum was ok
 ```
 
-
-
+<!--- 
 ## Send a trajectory
 Send a trajectory and initiate move
 ```python
@@ -108,5 +111,5 @@ beta_traj = [(0, 5), (60, 10), (60, 20), (120, 30), (0, 45)]
 pos4.send_trajectory(alpha_traj, beta_traj)
 # initiate the move
 pos4.start_trajectory()
-```
-
+``` 
+-->
