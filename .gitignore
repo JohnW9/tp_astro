@@ -131,3 +131,4 @@ dmypy.json
 # Don't push camera calibration files to git
 
 Config/Cameras
+test.py
