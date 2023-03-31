@@ -4,8 +4,8 @@ This library allows communication with the fiber positioner though the CAN bus a
 
 # Setup
 
-Python version: 3.7 or after
-In order to use it the modules in *requirement.txt* must be available for the used python interpreter
+Python version: 3.7 or after <br>
+In order to use it the modules in *requirement.txt* must be available for the used python interpreter <br>
 Copy the [*Cameras* folder](https://drive.google.com/drive/folders/1heMNF-fCXqoXDatZ4CJjCBfjY_bv1eqs?usp=share_link) in root to get the calibration files from the camera
 
 # Usage
@@ -38,8 +38,9 @@ my_positioner = positioner.Positioner(bus, 4)
 -->
 # Examples
 
-Here are all the python functions you need to get through this practicals 
-**Gentle warning**: nothing prevents you from roaming into the original files to get to know additional function, it is even encouraged if you want to learn more about how the code for such robot is made :-) **However**, if you wish to get through this practicals with a minimum head-ache from the famous "why does my code not work?", we recommand you do not modify any further the original files ;-)
+Here are all the python functions you need to get through this practicals <br>
+**Gentle warning**: nothing prevents you from roaming into the original files to get to know additional function, it is even encouraged if you want to learn more about how the code for such robot is made :-)<br>
+**However**, if you wish to get through this practicals with a minimum head-ache from the famous "why does my code not work?", we recommand you do not modify any further the original files ;-)
 
 ## Setup communication for camera & positioner
 
