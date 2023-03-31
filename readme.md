@@ -1,15 +1,11 @@
-﻿# SDSS-V Positioner & Camera interface
+﻿# Positioner & Camera interface
 
-This library allows communication with the SDSS-V Positioner though the CAN bus and with the Basler camera via USB.
+This library allows communication with the fiber positioner though the CAN bus and with the Basler camera via USB.
 
 # Setup
 
 Python version: 3.7 or after
-In order to use it the modules in requirement.txt must be available for the used python interpreter
-
-Note for serial link between PC and positioner:
-Until the next release of the package (2.3.0), where the serial interface is going to be updated the following version is used for testing:
-https://github.com/boris-wenzlaff/python-can/tree/serialcom_b
+In order to use it the modules in *requirement.txt* must be available for the used python interpreter
 
 # Usage
 
@@ -105,7 +101,7 @@ Finally you will also by provided the fit_circle function, i.e. determine the cl
 
 ```python
 from miscmath import fit_circle
-# xData, yData are np arrays of the collected data points coordinates
+# /!\ xData, yData are np arrays of the collected data points coordinates /!\
 center_x, center_y, radius = fit_circle(xData, yData)
 ```
 

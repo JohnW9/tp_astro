@@ -1,6 +1,7 @@
 import tp_astro as tp
 from miscmath import fit_circle
 import matplotlib.pyplot as plt
+import numpy as np
 
 cam, pos = tp.tp_init()
 xData = []
@@ -14,7 +15,9 @@ for position in traj:
     yData.append(y)
 
 print(xData, yData)
+xData = np.asarray(xData)
+yData = np.asarray(yData)
 cx, cy, r = fit_circle(xData, yData)
 
-plt.plot(xData, yData)
-plt.plot(cx, cy)
+plt.scatter(xData, yData)
+plt.scatter(cx, cy)
