@@ -6,6 +6,7 @@ This library allows communication with the fiber positioner though the CAN bus a
 
 Python version: 3.7 or after
 In order to use it the modules in *requirement.txt* must be available for the used python interpreter
+Copy the [*Cameras* folder](https://drive.google.com/drive/folders/1heMNF-fCXqoXDatZ4CJjCBfjY_bv1eqs?usp=share_link) in root to get the calibration files from the camera
 
 # Usage
 
