@@ -99,7 +99,8 @@ print(x_centroid, y_centroid)
 
 ## Fit circle 
 
-Finally you will also by provided the fit_circle function, i.e. determine the closest circle fit from a set of data points
+Finally you will also by provided the fit_circle function, i.e. determine the closest circle fit from a set of data points <br>
+<span style="color: red;"> Note:</span>
 
 ```python
 from miscmath import fit_circle
