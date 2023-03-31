@@ -1,0 +1,9 @@
+pypylon
+numpy
+scipy
+sckikit-image
+matplotlib
+colorama
+openpyxl
+pyserial
+python-can
