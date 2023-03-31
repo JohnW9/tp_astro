@@ -75,8 +75,38 @@ pos.wait_move()
 
 ## Acquire data with camera
 
-The camera allows you to acquire the center point of the dot of light on the robot 
+The camera allows you to acquire the center point cartesian coordinates of the dot of light on the robot 
 
+```python
+x_centroid, y_centroid = cam.getCentroid()
+```
+
+## Example of scripted data acquisition
+
+This code snippet summarizes in one shot:
+* Initialize commmunication  objects
+* Make a move
+* Get position of the fiber centroid
+```python
+import tp_astro as tp
+cam, pos = tp.tp_init()
+pos.goto_absolute(30,90)
+pos.wait_move()
+x_centroid, y_centroid = cam.getCentroid()
+print(x_centroid, y_centroid)
+```
+
+# Fit circle 
+
+Finally you will also by provided the fit_circle function, i.e. determine the closest circle fit from a set of data points
+
+```python
+from miscmath import fit_circle
+# xData, yData are np arrays of the collected data points coordinates
+center_x, center_y, radius = fit_circle(xData, yData)
+```
+
+<!--- 
 ## Perform a firmware upgrade
 The following commands will perform a firmware upgrade on the device with ID 4 on an ixxat bus.
 ```python
@@ -91,7 +121,7 @@ pos4.firmware_upgrade(r'sdssv_v2.bin')
 # aditionnal checks can be done with status to make sure the new image was loaded and checksum was ok
 ```
 
-<!--- 
+
 ## Send a trajectory
 Send a trajectory and initiate move
 ```python
