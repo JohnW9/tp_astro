@@ -33,16 +33,26 @@ Each axis can rotate from 0° to 360°. Once the pos object is created you can e
 
 * Move to an absolute angular position, say (alpha = 30°, beta = 90°)
 ```python
-# Alpha axis will move to 30° and beta to 90
+"""
+Input: None
+Output: robot moves to absolute angular positons
+"""
 pos.goto_absolute(30,90)
 ```
-* Wait for the move to finish before continuing
+* IMPORTANT: Wait for the move to finish before continuing
 ```python
+"""
+Input: None
+Output: code pauses executing until robot finishes its move
+"""
 pos.wait_move()
 ```
 * Change the angular speed of each axis, in RPM on the motor side (speed limits: [1000, 3000] RPM)
 ```python
-# Speed for the next move will be changed to 2000 RPM for both axis
+"""
+Input: alpha speed [scalar in RPM], beta speed [scalar in RPM]
+Output: speed set for next moves until new change
+"""
 pos.set_speed(2000,2000)
 ```
 * Move to a relative angular position from current position, say (alpha = 30°, beta = 90°)
@@ -74,10 +84,10 @@ This code snippet summarizes in one shot:
 * Get position of the fiber centroid
 ```python
 import tp_astro as tp
-cam, pos = tp.tp_init()
-pos.goto_absolute(30,90)
-pos.wait_move()
-x_centroid, y_centroid = cam.getCentroid()
+cam, pos = tp.tp_init() # Initialize camera & robot communication
+pos.goto_absolute(30,90) # Move robot to alpha = 30°, beta = 90°
+pos.wait_move() # Wait for trajectory to finish before continuing
+x_centroid, y_centroid = cam.getCentroid() # Acquire position of centroid on image
 print(x_centroid, y_centroid)
 ```
 
@@ -88,44 +98,11 @@ Finally you will also by provided the fit_circle function, i.e. determine the cl
 
 ```python
 from miscmath import fit_circle
-# /!\ xData, yData are np arrays of the collected data points coordinates /!\
+"""
+Input : - xData (np array), yData (np array) = x,y coordinate of sample points
+Output: - center_x [mm], center_y [mm] = center of fitted circle
+        - radius [mm] = radius of fitted circle
+"""
+
 center_x, center_y, radius = fit_circle(xData, yData)
 ```
-
-<!--- 
-## Perform a firmware upgrade
-The following commands will perform a firmware upgrade on the device with ID 4 on an ixxat bus.
-```python
-import can
-import positioner
-canbus = can.interface.Bus(bustype='ixxat', channel=0, bitrate=1000000)
-pos4 = positioner.Positioner(canbus, 4)
-# get firmware version to make sure we are in bootloader
-pos4.get_fw_version()
-# make sure version is xx.80.zz
-pos4.firmware_upgrade(r'sdssv_v2.bin')
-# aditionnal checks can be done with status to make sure the new image was loaded and checksum was ok
-```
-
-
-## Send a trajectory
-Send a trajectory and initiate move
-```python
-import can
-import positioner
-canbus = can.interface.Bus(bustype='ixxat', channel=0, bitrate=1000000)
-pos4 = positioner.Positioner(canbus, 4)
-# get firmware version to make sure we are main firmware
-# make sure version is xx.02.zz
-pos4.get_fw_version()
-# init the datums otherwise positioner will refuse to move, LEDs will blink alternatively after init is done
-pos4.initialize_datums()
-# sets the trajectories (list of tupplies (degree, time [s])
-alpha_traj = [(60, 5), (60, 10), (120, 20), (120, 30), (0, 45)]
-beta_traj = [(0, 5), (60, 10), (60, 20), (120, 30), (0, 45)]
-# send the trajectories
-pos4.send_trajectory(alpha_traj, beta_traj)
-# initiate the move
-pos4.start_trajectory()
-``` 
--->
