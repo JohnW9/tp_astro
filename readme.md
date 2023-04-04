@@ -13,35 +13,11 @@ If not existing, create a folder *Cameras* in the *Config* folder and paste the 
 
 The usage is pretty simple:
 * import tp_init() from tp_astro
-* initialiaze CAN bus for positioner & USB link for camera (example below)
-* use them :-)
+* use *cam* & *pos* objects to acquire data and move around the robot :-)
 
-<!--- ## Setup a can interface
-
-To set up an interface, simply use the bus.can.interface with proper options.
-for an ixxat device use:
-```python
-bus = can.interface.Bus(bustype='ixxat', channel=0, bitrate=1000000)
-```
-for a serial device with the usbcan adapter use:
-```python
-bus = can.interface.Bus('COM3', bustype='slcan', ttyBaudrate=921600, bitrate=1000000)
-```
--->
-
-<!---  ## Setup a positioner
-
-Simply declare a positioner with the bus created earlier and the CAN ID.
-```python
-my_positioner = positioner.Positioner(bus, 4)
-```
-> The ID 0 can be used for broadcast commands.
--->
 # Examples
 
 Here are all the python functions you need to get through this practicals <br>
-**Gentle warning**: nothing prevents you from roaming into the original files to get to know additional function, it is even encouraged if you want to learn more about how the code for such robot is made :-)<br>
-**However**, if you wish to get through this practicals with a minimum head-ache from the famous "why does my code not work?", we recommand you do not modify any further the original files ;-)
 
 ## Setup communication for camera & positioner
 
@@ -60,26 +36,33 @@ Each axis can rotate from 0° to 360°. Once the pos object is created you can e
 # Alpha axis will move to 30° and beta to 90
 pos.goto_absolute(30,90)
 ```
-* Move to a relative angular position from current position, say (alpha = 30°, beta = 90°)
+* Wait for the move to finish before continuing
 ```python
-# Alpha axis will move 30° from current position and beta 90° from current pos
-pos.goto_relative(30,90)
+pos.wait_move()
 ```
 * Change the angular speed of each axis, in RPM on the motor side (speed limits: [1000, 3000] RPM)
 ```python
 # Speed for the next move will be changed to 2000 RPM for both axis
 pos.set_speed(2000,2000)
 ```
-* Wait for the move to finish before continuing (totally ramdomly: useful for waiting for the fiber to get in position to acquire its centroid)
+* Move to a relative angular position from current position, say (alpha = 30°, beta = 90°)
 ```python
-pos.wait_move()
+"""
+Input: alpha [scalar in °], beta [scalar in °]
+Output: robot moves to position relative to current one
+"""
+pos.goto_relative(30,90)
 ```
 
 ## Acquire data with camera
 
-The camera allows you to acquire the center point cartesian coordinates of the dot of light on the robot 
+The camera allows you to acquire the centroid of the fiber on the image coordinate 
 
 ```python
+"""
+Input: None
+Output: x,y = coordinates [mm, mm] of centroid of fiber on image
+"""
 x_centroid, y_centroid = cam.getCentroid()
 ```
 
