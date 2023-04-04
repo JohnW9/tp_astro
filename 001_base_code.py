@@ -1,3 +1,7 @@
+#%% Snippet for left PC
+import os
+os.chdir('c:\\tp_astro')
+
 # %% Packages needed (Ctrl + Enter to run cell)
 import tp_astro as tp
 from miscmath import fit_circle
