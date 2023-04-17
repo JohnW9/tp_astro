@@ -1,7 +1,7 @@
 pypylon
 numpy
 scipy
-sckikit-image
+skimage
 matplotlib
 colorama
 openpyxl
