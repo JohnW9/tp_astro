@@ -1,6 +1,6 @@
 #%% Snippet for left PC (Ctrl + Enter to run cell)
-import os
-os.chdir('c:\\tp_astro')
+# import os
+# os.chdir('c:\\tp_astro')
 
 # %% Packages needed 
 import tp_astro as tp
