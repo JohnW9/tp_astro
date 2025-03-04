@@ -7,3 +7,4 @@ colorama
 openpyxl
 pyserial
 python-can
+ipykernel

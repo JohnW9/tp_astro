@@ -1,10 +1,9 @@
-#%% Snippet for left PC (Ctrl + Enter to run cell)
-# import os
-# os.chdir('c:\\tp_astro')
-
-# %% Packages needed 
+# %% Packages needed
+""" To run a cell: Ctrl+Enter """
 import tp_astro as tp
 from miscmath import fit_circle
+import numpy as np
+import matplotlib.pyplot as plt
 
 # %% Initialize communication (run cell once is enough)
 cam, pos = tp.tp_init()
