@@ -1,7 +1,7 @@
 ﻿#cython: language_level=3
 import numpy as np
 import colorama
-
+REDUCTION_RATIO_FACTOR						= 3.65
 GUI_LOCK_CONFIG								= False
 GUI_TB1_FILENAME 							= 'Wall-e'
 GUI_TB2_FILENAME 							= 'Eve'

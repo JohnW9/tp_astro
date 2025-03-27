@@ -10,6 +10,7 @@ import zlib
 import os
 import logging
 import time
+import DEFINES
 
 log_positioner = logging.getLogger(__name__)
 log_positioner.setLevel(logging.INFO)
@@ -209,8 +210,8 @@ class Positioner(object):
             result = self._get_response_code(answer.arbitration_id)
             log_positioner.debug(result)
             alpha_position, beta_position = struct.unpack('<ii', answer.data)
-            alpha_angle = self._position_to_angle(alpha_position)
-            beta_angle = self._position_to_angle(beta_position)
+            alpha_angle = self._position_to_angle(alpha_position)/DEFINES.REDUCTION_RATIO_FACTOR
+            beta_angle = self._position_to_angle(beta_position)/DEFINES.REDUCTION_RATIO_FACTOR
             log_positioner.debug(f'alpha position: {alpha_angle:.3f} [°]')
             log_positioner.debug(f'beta position: {beta_angle:.3f} [°]')
             return alpha_angle, beta_angle
@@ -306,8 +307,8 @@ class Positioner(object):
         :param delta_beta: beta angle in degrees
         :return alpha_time, beta_time: time in seconds for completion of motion
         """
-        alpha_angle = self._angle_to_position(delta_alpha)
-        beta_angle = self._angle_to_position(delta_beta)
+        alpha_angle = self._angle_to_position(DEFINES.REDUCTION_RATIO_FACTOR*delta_alpha)
+        beta_angle = self._angle_to_position(DEFINES.REDUCTION_RATIO_FACTOR*delta_beta)
         packetdata = bytes(struct.pack('<ii', alpha_angle, beta_angle))
 
         self._send_command('GOTO_POSITION_RELATIVE', packetdata)
